@@ -52,7 +52,7 @@ The paper also gives the formal reading of every concurrency language feature (�
 
 ## §1 Prior art: why this document did not already exist
 
-You asked first whether this document already exists. It does not. What exists is a set of partial views, each of which was checked in the course of writing this:
+One first wonders whether such a document as this already exists. At the time of this writing, it did not. What exists is a set of partial views, each of which was checked in the course of writing this:
 
 | Artifact | What it is | What it is not |
 |---|---|---|
@@ -558,7 +558,7 @@ Composing 1–3 gives exactly the theorem of §3. Nothing in the composition is 
 
 **Caveat A — R-SAFE-3 (no deadlocks) is quietly abandoned in the strong form.** The 2020 roadmap promised eliminating "data races and deadlocks." What shipped eliminates *actor-mailbox* deadlocks (via re-entrancy) but permits: blocking a cooperative thread (R-RUN-1 violations deadlock the pool), `assumeIsolated` misuse, and classic lock-ordering deadlocks with `Mutex`. The requirement was silently weakened, never formally retracted. This is a consistency issue between documents, not within the shipped set — but it illustrates the absence of a requirements registry where such a retraction would be recorded.
 
-**Caveat B — R-ISO-1's "exactly one isolation" and R-SEND-5's fidelity are in tension with type erasure.** The declaration-level story (every decl has one isolation) is consistent. But values of function type outlive declarations, and the type system permits conversions that erase isolation from the type while the underlying value retains it behaviorally. Unless erased-but-retained isolation is tracked somewhere else (RBI regions or `@isolated(any)`), the requirement set is consistent only under the additional, unwritten axiom R-SEND-5. With R-SEND-5 stated, the set is consistent; without it, the set is incomplete — it fails to determine the semantics of exactly the programs in the bug family. **The requirements as actually written down by the project do not decide the motivating bug.** That is the precise sense in which your diagnosis — "the real cause is the lack of a coherent document" — is correct.
+**Caveat B — R-ISO-1's "exactly one isolation" and R-SEND-5's fidelity are in tension with type erasure.** The declaration-level story (every decl has one isolation) is consistent. But values of function type outlive declarations, and the type system permits conversions that erase isolation from the type while the underlying value retains it behaviorally. Unless erased-but-retained isolation is tracked somewhere else (RBI regions or `@isolated(any)`), the requirement set is consistent only under the additional, unwritten axiom R-SEND-5. With R-SEND-5 stated, the set is consistent; without it, the set is incomplete — it fails to determine the semantics of exactly the programs in the bug family. **The requirements as actually written down by the project do not decide the motivating bug.** That's how the real subsystem responsible for the 88002 bug was human one: lack of a coherent understanding of the formal requiremetns, which can't have been helped by the lack of a document like this one.
 
 ### §6.2 Q2: The implementation is not a model — anatomy of the motivating bug
 
