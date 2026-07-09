@@ -1,4 +1,4 @@
-# Rooms, Couriers, and Boxes: A Guide to Swift Concurrency
+# A Guide to Swift Concurrency
 
 **A field guide and reference** · Draft 2.0 · 2026-07-08 · Jonathan Gilbert
 
